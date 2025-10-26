@@ -44,7 +44,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="lPU-MI-ePy">
-                                <rect key="frame" x="100.66666666666667" y="317" width="191.66666666666663" height="60.666666666666686"/>
+                                <rect key="frame" x="100.66666666666667" y="317" width="191.66666666666663" height="141.33333333333337"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🍏 Part 2: SwiftUI Layout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ASJ-Bx-51Y">
                                         <rect key="frame" x="0.0" y="0.0" width="191.66666666666666" height="20.333333333333332"/>
@@ -58,6 +58,22 @@
                                         <buttonConfiguration key="configuration" style="plain" title="Declarative UI"/>
                                         <connections>
                                             <action selector="declarativeUIButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9LR-2v-aET"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wZ4-fZ-vb5">
+                                        <rect key="frame" x="0.0" y="60.666666666666686" width="191.66666666666666" height="40.333333333333343"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="LayoutInLayout"/>
+                                        <connections>
+                                            <action selector="layoutInLayoutButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7lc-Fb-Jic"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fRt-Co-xLo">
+                                        <rect key="frame" x="0.0" y="101" width="191.66666666666666" height="40.333333333333343"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="AlignmentFrame"/>
+                                        <connections>
+                                            <action selector="alignmentFrameButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YSr-16-qgO"/>
                                         </connections>
                                     </button>
                                 </subviews>

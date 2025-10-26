@@ -35,7 +35,21 @@ class ViewController: UIViewController {
     
     @IBAction func declarativeUIButtonTapped(_ sender: Any) {
         let swiftUIView = DeclarativeUI()
-        let hostingController = UIHostingController(rootView: swiftUIView)
+        pushViewController(rootView: swiftUIView)
+    }
+    
+    @IBAction func layoutInLayoutButtonTapped(_ sender: Any) {
+        let swiftUIView = LayoutInLayout()
+        pushViewController(rootView: swiftUIView)
+    }
+    
+    @IBAction func alignmentFrameButtonTapped(_ sender: Any) {
+        let swiftUIView = AlignmentFrame()
+        pushViewController(rootView: swiftUIView)
+    }
+    
+    func pushViewController<Content: View>(rootView: Content) {
+        let hostingController = UIHostingController(rootView: rootView)
         navigationController?.pushViewController(hostingController, animated: true)
     }
 }
