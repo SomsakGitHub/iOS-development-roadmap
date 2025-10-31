@@ -1,3 +1,5 @@
+import UIKit
+
 //🎯 แนวคิดหลัก: Codable
 //
 //ใน Swift การแปลง JSON ↔️ Object ใช้โปรโตคอลชื่อว่า
@@ -31,15 +33,6 @@ struct Post: Codable {
 }
 
 //✅ ชื่อ property ต้อง “ตรงกับ key” ใน JSON (case-sensitive)
-
-import UIKit
-
-class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
 
     //🧩 ขั้นตอนที่ 2: แปลง JSON → Struct (Decode)
     func example() {
@@ -85,10 +78,10 @@ class ViewController: UIViewController {
 //    ]
 //    ให้ใช้ [Post].self ตอน decode:
     
-//    struct PostExample3: Codable {
-//        let id: Int
-//        let title: String
-//    }
+    struct PostExample3: Codable {
+        let id: Int
+        let title: String
+    }
 //
 //    do {
 //        let posts = try JSONDecoder().decode([PostExample3].self, from: jsonData)
@@ -108,15 +101,15 @@ class ViewController: UIViewController {
 //    แต่คุณอยากใช้ชื่อ property แบบ Swift เช่น userId, title
 //    ให้ใช้ CodingKeys mapping แบบนี้ 👇
 
-//    struct Post: Codable {
-//        let userId: Int
-//        let title: String
-//
-//        enum CodingKeys: String, CodingKey {
-//            case userId = "user_id"
-//            case title = "post_title"
-//        }
-//    }
+    struct PostCodingKeys: Codable {
+        let userId: Int
+        let title: String
+
+        enum CodingKeys: String, CodingKey {
+            case userId = "user_id"
+            case title = "post_title"
+        }
+    }
     
 //    ⚡ CodingKeys จะช่วย “แม็ปชื่อใน JSON” ให้ตรงกับ property ใน struct
     
@@ -129,15 +122,15 @@ class ViewController: UIViewController {
 //      }
 //    }
     
-//    struct Post: Codable {
-//        let id: Int
-//        let user: User
-//    }
-//
-//    struct User: Codable {
-//        let name: String
-//        let email: String
-//    }
+    struct PostNestedJSON: Codable {
+        let id: Int
+        let user: User
+    }
+
+    struct User: Codable {
+        let name: String
+        let email: String
+    }
 
 //    ตอน decode ก็ยังเหมือนเดิม:
 //
@@ -149,10 +142,10 @@ class ViewController: UIViewController {
 //    บาง API อาจมีบาง key หายไป เช่น "body" ไม่มีในบาง object
 //    ให้ใช้ ? เพื่อไม่ให้ decode ล้มเหลว:
     
-//    struct Post: Codable {
-//        let id: Int
-//        let title: String?
-//    }
+    struct PostOptional: Codable {
+        let id: Int
+        let title: String?
+    }
 
 //    ✅ ถ้า key หาย → title จะเป็น nil แทนที่จะ crash
     
@@ -161,8 +154,8 @@ class ViewController: UIViewController {
 //    คุณไม่ต้องเขียน CodingKeys เองทุกครั้ง
 //    ใช้ decoder แบบนี้แทนได้เลย:
     
-//    let decoder = JSONDecoder()
-//    decoder.keyDecodingStrategy = .convertFromSnakeCase
+    let decoder = JSONDecoder()
+    decoder.keyDecodingStrategy = .convertFromSnakeCase
 //
 //    let post = try decoder.decode(Post.self, from: data)
     
@@ -170,23 +163,22 @@ class ViewController: UIViewController {
     
 //    🧭 ตัวอย่างครบวงจร: Fetch + Parse JSON จาก API
     
-//    struct Post: Codable {
-//        let id: Int
-//        let title: String
-//        let body: String
-//    }
-//
-//    func fetchPost() async {
-//        guard let url = URL(string: "https://jsonplaceholder.typicode.com/posts/1") else { return }
-//        do {
-//            let (data, _) = try await URLSession.shared.data(from: url)
-//            let post = try JSONDecoder().decode(Post.self, from: data)
-//            print("✅ Title:", post.title)
-//        } catch {
-//            print("❌ Error:", error)
-//        }
-//    }
+    struct PostParse: Codable {
+        let id: Int
+        let title: String
+        let body: String
+    }
+
+    func fetchPost() async {
+        guard let url = URL(string: "https://jsonplaceholder.typicode.com/posts/1") else { return }
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let post = try JSONDecoder().decode(PostParse.self, from: data)
+            print("✅ Title:", post.title)
+        } catch {
+            print("❌ Error:", error)
+        }
+    }
 
 
-}
 
