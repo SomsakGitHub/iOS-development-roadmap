@@ -1,29 +1,32 @@
-//
-//  PostViewController.swift
-//  Caching&LoadingStates
-//
-//  Created by tiscomacnb2486 on 1/11/2568 BE.
-//
-
 import UIKit
 
 class PostViewController: UIViewController {
-
+    private var posts: [Post] = []
+    private var activity = UIActivityIndicatorView(style: .large)
+//    ใช้ UIActivityIndicatorView แสดงสถานะกำลังโหลด
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        title = "Posts"
+        view.backgroundColor = .systemBackground
+        activity.center = view.center
+        view.addSubview(activity)
+        
+        Task { await fetchPosts() }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func fetchPosts() async {
+        activity.startAnimating()
+        defer { activity.stopAnimating() }
+        
+        guard let url = URL(string: "https://jsonplaceholder.typicode.com/posts") else { return }
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let posts = try JSONDecoder().decode([Post].self, from: data)
+            self.posts = posts
+            print("✅ โหลดสำเร็จ:", posts.count)
+        } catch {
+            print("❌ Error:", error)
+        }
     }
-    */
-
 }
